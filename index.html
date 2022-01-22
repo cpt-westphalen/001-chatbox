@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>Teste de ChatBox</title>
+</head>
+<body>
+	<div id='mainContent' style='min-height:  1920px width: auto; margin: auto;'>
+
+
+		<section id="intro">
+		<div id='topLeftBlock' style="margin-top: 30px; max-width: 500px; float: left; margin-left: 10%;">
+			<h1 style="display: inline;">Teste de Chatbox</h1><h4 style="color: lightgray; display: inline; margin-left: 20px; font-style: italic;">versão 0.01-alpha</h4>
+			<p>Digite abaixo um nome de usuário para utilizar no chat.</p>
+			<input type="text" placeholder="@seunome..." id="usernameInputText" autocomplete="off" maxlength="16" title="Digite um nome de usuário aqui">
+			<button id="usernameInputButton" title="Clique para criar usuário">Criar</button>
+			<p id="usernameDisplay" style="font-style: italic; color: gray; font-size: small;"></p>
+		</div>
+		</section>
+		<div id="topRightBlock" style="max-width: 500px; float: right; margin-left:  10%; margin-right: 33%;">
+			<div id="chat-messages" style="min-height: 200px; max-height: 800px; margin-top: 30%;">
+			</div>
+			<div id="chat-form" style="margin: 100,50;">
+				<input type="text" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off">
+				<button type="submit">Enviar</button>
+		 	</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+
+class Usuario {
+	constructor(nome) {
+		this.nome = nome;
+	}
+ //inserir pesquisador de msg por usuario
+}
+
+var usernames = [];
+var createdUser = false;
+var makeUserButton = document.getElementById("usernameInputButton");
+
+console.log("javascript iniciado com sucesso");
+
+makeUserButton.onclick = function criadorDeUser(){
+	let usernameInput = document.getElementById("usernameInputText").value;
+	document.getElementById("usernameInputText").value = "";
+	let nextUsernameIndex = usernames.length;
+	usernames[nextUsernameIndex] = new Usuario(usernameInput);
+	createdUser = true;
+	console.log("novo objeto de usuario criado");
+	console.log(usernames[nextUsernameIndex].nome, nextUsernameIndex);
+	document.getElementById("usernameDisplay").innerText = "Novo usuário criado com sucesso: @" + usernames[nextUsernameIndex].nome;
+}
+
+</script>
+</html>

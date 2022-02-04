@@ -11,13 +11,15 @@ var makeUserButton = document.getElementById("usernameInputButton");
 
 console.log("javascript iniciado com sucesso");
 
-makeUserButton.onclick = function criadorDeUser(){
+function criadorDeUser(){
 	let usernameInput = document.getElementById("usernameInputText").value;
 	document.getElementById("usernameInputText").value = "";
 	let nextUsernameIndex = usernames.length;
-	usernames[nextUsernameIndex] = new Usuario(usernameInput);
-	createdUser = true;
+	usernames[nextUsernameIndex] = new Usuario(usernameInput); //aqui vão os parâmetros depois
+	createdUser = true; //não tenho certeza porque fiz isso
 	console.log("novo objeto de usuario criado");
 	console.log(usernames[nextUsernameIndex].nome, nextUsernameIndex);
 	document.getElementById("usernameDisplay").innerText = "Novo usuário criado com sucesso: @" + usernames[nextUsernameIndex].nome;
 }
+
+makeUserButton.addEventListener('click', criadorDeUser());

@@ -1,0 +1,47 @@
+body {
+	min-height: 1080px;
+}
+
+#mainContent {
+	max-height: 1080px;
+	min-height:  max-content; 
+	background-color: lightgray;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#intro {
+	display: inherit;
+	max-width: 600px;
+	max-height: 600px;
+	min-width: 33%;
+	margin-top: 30px; 
+	margin-left: 10%;
+	flex-direction: column;
+	background-color: aliceblue;
+}
+
+#usernameDisplay {
+	font-family: monospace;
+	font-style: italic; 
+	color: gray; 
+	font-size: small;
+}
+
+#chatStuff {
+	display: inherit;
+	flex-direction: column;
+	flex-basis:  100%;
+	max-width: 600px;
+	max-height: 800px;
+	min-width: 33%;
+	margin-left:  10%; 
+	background-color: palevioletred;
+}
+
+#chat-messages {
+	min-height: 400px; 
+	max-height: 800px; 
+	margin-top: 30%; 
+	background-color: mediumvioletred;
+}

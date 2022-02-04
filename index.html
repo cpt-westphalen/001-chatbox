@@ -4,6 +4,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Teste de ChatBox</title>
+	<meta name="description" content='Um experimento de programação para simular um chat com usuários.'>
+	<meta name="author" content='Rodrigo Westphalen'>
+	<link href="stylesheet.css" rel='stylesheet' type="text/css">
+	<script type="text/javascript" src="script.js" async></script>
 </head>
 
 <body style="min-height: 1080px">
@@ -24,56 +28,36 @@
 	[!] -> As cores de fundo são apenas para identificar as seções e não farão parte do produto final.
 	-->
 	
-	<div id='mainContent' 
-	style='max-height: 1080px;
-	min-height:  max-content; 
-	background-color: lightgray;
-	display: flex;
-	flex-wrap: wrap;'>
+	<div id='mainContent'>
 
 
-		<section id="intro" 
-			style="display: inherit;
-			max-width: 600px;
-			max-height: 600px;
-			min-width: 33%;
-			margin-top: 30px; 
-			margin-left: 10%;
-			flex-direction: column;
-			background-color: aliceblue;">
+		<section id="intro">
 
-			<div><h1 style="display: inline;">Teste de Chatbox</h1><h4 style="color: lightgray; display: inline; margin-left: 20px; margin-right: 20px; font-style: italic;">versão 0.01-alpha</h4></div>
+			<div>
+				<h1 style="display: inline;">Teste de Chatbox</h1>
+				<h4 style="color: lightgray; display: inline; margin-left: 20px; margin-right: 20px; font-style: italic;">versão 0.01-alpha</h4>
+			</div>
 			
 			<p>Digite abaixo um nome de usuário para utilizar no chat.</p>
 			
 			<div style="margin-top: 5%;">
-			<input type="text" placeholder="@seunome..." id="usernameInputText" autocomplete="off" maxlength="16" title="Digite um nome de usuário aqui">
-			
-			<button id="usernameInputButton" title="Clique para criar usuário">Criar</button>
-			
-			<p id="usernameDisplay" style="font-family: monospace;font-style: italic; color: gray; font-size: small;"></p>
+				<input type="text" placeholder="@seunome..." id="usernameInputText" autocomplete="off" maxlength="16" title="Digite um nome de usuário aqui">
+				
+				<button id="usernameInputButton" title="Clique para criar usuário">Criar</button>
+				
+				<p id="usernameDisplay"></p>
 			</div>
 		</section>
 
-		<section id="chatStuff" 
-		style="display: inherit;
-			flex-direction: column;
-			flex-basis:  100%;
-			max-width: 600px;
-			max-height: 800px;
-			min-width: 33%;
-			margin-left:  10%; 
-			background-color: palevioletred;">
+		<section id="chatStuff">
 
-			<div id="chat-messages" style="min-height: 400px; max-height: 800px; margin-top: 30%; background-color: mediumvioletred;">
+			<div id="chat-messages"></div>
 			
-			</div>
-			
-			<div id="chat-form" style="margin: 100,50;">
+			<div id="chat-form" style="margin: 100px 50px;">
 				<input type="text" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off">
-				<button type="submit">Enviar</button>
+				<button id="send-new-message">Enviar</button>
 		 	</div>
+		 </section>
 	</div>
 </body>
-<script type="text/javascript" src="script.js"></script>
 </html>

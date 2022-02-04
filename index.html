@@ -6,11 +6,15 @@
 	<title>Teste de ChatBox</title>
 	<meta name="description" content='Um experimento de programação para simular um chat com usuários.'>
 	<meta name="author" content='Rodrigo Westphalen'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap" rel="stylesheet">
 	<link href="stylesheet.css" rel='stylesheet' type="text/css">
 	<script type="text/javascript" src="script.js" async></script>
 </head>
 
-<body style="min-height: 1080px">
+<body>
 
 	<!--
 	:::: Leia-me antes de análisar o código abaixo. ::::
@@ -35,26 +39,53 @@
 
 			<div>
 				<h1 style="display: inline;">Teste de Chatbox</h1>
-				<h4 style="color: lightgray; display: inline; margin-left: 20px; margin-right: 20px; font-style: italic;">versão 0.01-alpha</h4>
+				<h2>versão 0.01-alpha</h2>
 			</div>
 			
-			<p>Digite abaixo um nome de usuário para utilizar no chat.</p>
+			<p>Digite abaixo um <label for="usernameInputText">nome de usuário</label> e uma <label for="usernameInputColor">cor</label> para utilizar no chat.</p>
 			
-			<div style="margin-top: 5%;">
-				<input type="text" placeholder="@seunome..." id="usernameInputText" autocomplete="off" maxlength="16" title="Digite um nome de usuário aqui">
-				
-				<button id="usernameInputButton" title="Clique para criar usuário">Criar</button>
-				
-				<p id="usernameDisplay"></p>
+			<div id="inputUsernameContainer">
+				<input name="usernameInputText" type="text" placeholder="@seunome..." id="usernameInputText" autocomplete="off" maxlength="16" title="Digite um nome de usuário aqui" style="margin: 5px;">
+				<input name="usernameInputColor" type="color" style="margin: 5px;">
+				<button id="usernameInputButton" title="Clique para criar usuário" style="margin: 5px; width: 48px;">Criar</button>
 			</div>
+			<p id="usernameDisplay"></p>
 		</section>
 
 		<section id="chatStuff">
 
-			<div id="chat-messages"></div>
+			<main id="chat-messages">
+				<div class="chatPost yourText">
+					<h3 class="usernameDisplay">@Username01</h3>
+					<p>Ea quod veritatis aspernatur inventore corrupti quia necessitatibus nihil. Maxime minima maiores consectetur hic. Expedita quasi necessitatibus architecto deserunt vel sunt. Doloremque rerum possimus expedita ut. Architecto sunt aperiam neque similique praesentium consequatur repellendus. Voluptatibus nostrum odit debitis aut quo dolor.</p>
+				</div>
+				<div class="chatPost">
+					<h3 class="usernameDisplay">@Username01</h3>
+					<p>Vitae ratione corporis consequuntur eos provident. Minus placeat qui ut temporibus ipsam earum. Libero cupiditate debitis enim amet expedita dolores aut similique. Modi et dolores ab officiis quia.</p>
+				</div>
+				<div class="chatPost">
+					<h3 class="usernameDisplay">@Username01</h3>
+					<p>Perferendis quod aut quod nemo ut animi dolore suscipit. Amet natus possimus ut tenetur facere aut occaecati. Et quibusdam molestiae neque qui. Sequi qui natus exercitationem. Velit nihil adipisci cupiditate maiores sint quibusdam voluptatem illum.</p>
+				</div>
+				<div class="chatPost">
+					<h3 class="usernameDisplay">@Username01</h3>
+					<p>Reprehenderit eius et esse quia deserunt ut sequi. Quod sunt alias quasi unde molestiae ut qui porro. Architecto dolorum dignissimos aut optio quia quos rerum pariatur.</p>
+				</div>
+				<div class="chatPost" class="">
+					<h3 class="usernameDisplay">@Username01</h3>
+					<p>Beatae ipsa earum dolore aut. Sed aut esse debitis deleniti vel enim facere. Dolore blanditiis quam nisi quos ut est ipsam et. Alias dolor fugiat et ut. Quae similique dolorem et ea veniam repellendus voluptatem veritatis.</p>
+				</div>
+			</main>
 			
-			<div id="chat-form" style="margin: 100px 50px;">
-				<input type="text" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off">
+			<div id="chat-form">
+				<div style="display: block; margin-bottom: 5px;">
+					<label for="selectUser">Usuário:</label>
+					<select name="selectUser" id="selectUser" style="min-width: 15ch;">
+						<option value=""></option>
+					</select>
+				</div>
+				<!-- <input id="message-input-field" type="text" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off"> -->
+				<textarea id="message-input-field" name="message-input-field" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off"></textarea>
 				<button id="send-new-message">Enviar</button>
 		 	</div>
 		 </section>

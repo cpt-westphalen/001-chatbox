@@ -8,6 +8,7 @@ class Usuario {
 var usernames = [];
 var createdUser = false;
 var makeUserButton = document.getElementById("usernameInputButton");
+var chatboxLog = document.getElementById("chat-messages");
 
 console.log("javascript iniciado com sucesso");
 
@@ -23,3 +24,6 @@ function criadorDeUser(){
 }
 
 makeUserButton.addEventListener('click', criadorDeUser);
+
+//fazer o scroll começar embaixo
+window.onload = function() { chatboxLog.scrollTop = chatboxLog.scrollHeight; }

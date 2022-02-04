@@ -22,4 +22,4 @@ function criadorDeUser(){
 	document.getElementById("usernameDisplay").innerText = "Novo usuário criado com sucesso: @" + usernames[nextUsernameIndex].nome;
 }
 
-makeUserButton.addEventListener('click', criadorDeUser());
+makeUserButton.addEventListener('click', criadorDeUser);

@@ -24,7 +24,7 @@ p {
 	color: #4e5153;
 }
 
-#mainContent {
+#main-content {
 	display: flex;
 	flex-wrap: wrap;
 	margin: 20px auto;
@@ -53,19 +53,19 @@ p {
 	box-shadow: 1px 05px 10px 0 rgba(25,25,25,025);
 }
 
-#inputUsernameContainer {
+#input-username-container {
 	display: flex; 
 	justify-content: flex-end;
 }
 
-#usernameDisplay {
+#username-display {
 	font-family: monospace;
 	font-style: italic; 
 	color: gray; 
 	font-size: 0.6em;
 }
 
-#chatStuff {
+#chat-stuff {
 	display: inherit;
 	flex-direction: column;
 	flex-basis:  100%;
@@ -79,7 +79,7 @@ p {
 
 }
 
-#chat-messages {
+#chat-log {
 	display: flex;
 	flex-direction: column-reverse;
 	overflow-y: scroll;
@@ -127,22 +127,23 @@ p {
 	margin: 2%;
 }
 
-.chatPost {
+.chat-post {
 	color: white;
 	margin: 12px auto;
 	padding: 12px 16px;
+	width: 95%;
 	background-color: darkslategray;
 	border-radius: 35px 25px 35px 0;
 }
-.chatPost > p {
+.chat-post > p {
 	color: white;
 	font-size: 0.9em;
 }
-.chatPost > h3 {
+.chat-post > h3 {
 	margin-top: 12px;
 }
 
-.yourText {
+.your-text {
 	border-radius: 25px 35px 0 35px;
 }
 

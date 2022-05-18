@@ -50,12 +50,21 @@ _Coisas que eu gostaria de adicionar_
 
 ---
 
-### Deadline de conclusão: 01 DRIADAN 2022
+### Deadline de conclusão: 01 GAIAN* 2022
+*data revista baseado em outras prioridades de estudo
 
 ---
 
 # Changelog
 
-2022\02\11 - Início dos logs
+2022\E\25 - Criação de Usuários
+    ++ add: branch para ajustar a criação de usuários e a organização dos dados nos objetos
+    ++ add: objetos "Message" possuem timestamp, carregam nome do autor e corpo de texto
+    ++ add: Class Users e Class Message são usadas pra fabricar novos usuários e novas mensagens e passar ambos para o objeto "users" e para o log em "chatbox".
+    ++ add: objeto chatbox para conter log de mensagens a serem exibidas (ainda não exibe a partir do log)
+* UPCOMING:
+* Ajustes na forma de exibição das mensagens no chatbox para exibir o log[]
+
+2022\B\11 - Início dos logs
 	+- mudança na descrição do repositório;
 	++ adição: "Diagrama Chatbox.drawio" // Para ajudar a pensar a organização da informação de usuários e mensagens;

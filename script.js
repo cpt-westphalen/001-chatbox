@@ -7,7 +7,7 @@ class User {
 	}
 	send(message) {
 		this.messages.unshift(message); //logs message on user
-		console.log(this," has just sent ", this.messages[i]);
+		console.log(this," has just sent ", this.messages[0]);
 		chatbox.newMessage(message);
 		// messageDisplay(this.username, this.color, texto);
 	}
@@ -47,9 +47,17 @@ const users = {
 //global chatbox object
 const chatbox = {
 	log: [],
+	get available() {
+		return (Object.keys(users.id).length !== 0);
+	},
+	get display() {
+		return document.getElementById("chat-log");
+	},
 	newMessage(message) {
 		this.log.unshift(message);
 		console.log("New message added to chatbox log");
+		this.messageDisplay(message);
+
 	},
 	update() {
 		if(this.log[0]) {
@@ -59,17 +67,38 @@ const chatbox = {
 			console.log("No new messages yet.");
 			setTimeout(()=>{this.update()}, 20000);
 		}
+	},
+	messageDisplay(message) {
+		// <div class='chat-post'> wrapper for chatbox message html elements
+		const newPost = document.createElement('div');
+		newPost.classList.add('chat-post');
+		
+		// TO DO => if (esse post é seu) { faça ele também ser class yourText };
+
+		// the <h3 class="username-display"> for "author" of Message obj
+		const newH3 = document.createElement('h3');
+		newH3.classList.add('username-display');
+		newH3.textContent = '@' + message.author;
+		newH3.style.color = users.id[message.author].color;
+		//now the <p class='chat-message'> element for textContent of Message obj
+		const newP = document.createElement('p');
+		newP.classList.add('chat-message');
+		newP.textContent = message.textContent;
+		// append everything to <div> and send to chatbox.display html object
+		newPost.append(newH3, newP);
+		chatbox.display.prepend(newPost);
 	}
 };
 
-// send message from chatbox input
+// send message from chatbox input to users.id[username] obj
 function sendMessage() {
 	
 	const username = document.getElementById('select-user').value;
 	const text = document.getElementById('message-input-field').value;
 	document.getElementById('message-input-field').value = "";
-	
+	// build a new message object
 	const message = new Message(username,text);
+	// send the message obj to user send method
 	users.id[username].send(message);
 	console.log("new message created and sent to user object");
 
@@ -80,24 +109,9 @@ function sendMessage() {
 	// users.id[author].send(text);
 }
 
+if (Object.keys(users.id).length === 0) chatbox.available = false;
 
-function messageDisplay(usernameDisplay, usernameColor, textFieldInput) {
-	let newPost = document.createElement('div');
-	newPost.classList.add('chat-post');
-	//if (esse post é seu) { faça ele também ser class yourText };
-	let newH3 = document.createElement('h3');
-	newH3.classList.add('username-display');
-	newH3.textContent = '@' + usernameDisplay;
-	newH3.style.color = users.id[usernameDisplay].color;
-	let newPara = document.createElement('p');
-	newPara.classList.add('chat-message');
-	newPara.textContent = textFieldInput;
-	newPost.append(newH3, newPara);
-	chatboxLogDisplay.prepend(newPost);
-}
-
-let createdUser = false; //só pra que não seja possível enviar mensagens antes de ter um usuário (e talvez 'liberar' o chat só depois)
-const chatboxLogDisplay = document.getElementById("chat-log");
+// const chatboxLogDisplay = document.getElementById("chat-log");
 
 console.log("javascript iniciado com sucesso");
 
@@ -119,15 +133,24 @@ function newUser(){
 	document.getElementById("username-input-text").value = "";
 
 	users.add(usernameInput, usernameColor);
+	addUserOnSelector(usernameInput);
 	
 	document.getElementById("username-display").textContent = String("Novo usuário criado com sucesso: " + users.id[usernameInput].username);
 }
 
 function addUserOnSelector(usernameInput){
 	//chamar para adicionar username no seletor e ter valor: usernameInput;
+	const selector = document.getElementById('select-user');
+	const newOption = document.createElement('option');
+	newOption.value = usernameInput;
+	newOption.textContent = usernameInput;
+	selector.append(newOption);
+	if (chatbox.available) {
+		selector.disabled = false;
+	}
 }
 
 //fazer o scroll começar embaixo
-window.onload = function() { chatboxLogDisplay.scrollTop = chatboxLogDisplay.scrollHeight; }
+window.onload = function() { chatbox.display.scrollTop = chatbox.display.scrollHeight; }
 
 //Falta fazer o selector funcionar e então adicionar a função ao click do Enviar

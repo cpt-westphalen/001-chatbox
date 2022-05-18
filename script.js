@@ -109,6 +109,31 @@ function sendMessage() {
 	// users.id[author].send(text);
 }
 
+function mockInitialMessages() {
+	const messages = [
+		{
+			author: 'Cão',
+			userColor: '#FFF000',
+			textContent: 'Tirulaa'
+		},
+		{
+			author: 'Ike',
+			userColor: '#000000',
+			textContent: 'Tirulei'
+		},
+		{
+			author: 'Cão',
+			userColor: '#FFF000',
+			textContent: 'Ea quod veritatis aspernatur inventore corrupti quia necessitatibus nihil. Maxime minima maiores consectetur hic. Expedita quasi necessitatibus architecto deserunt vel sunt. Doloremque rerum possimus expedita ut. Architecto sunt aperiam neque similique praesentium consequatur repellendus. Voluptatibus nostrum odit debitis aut quo dolor.'
+		},
+	]
+
+	messages.map((message) => {
+		users.add(message.author, message.userColor);
+		users.id[message.author].send(message);
+	})
+}
+
 if (Object.keys(users.id).length === 0) chatbox.available = false;
 
 // const chatboxLogDisplay = document.getElementById("chat-log");
@@ -152,5 +177,7 @@ function addUserOnSelector(usernameInput){
 
 //fazer o scroll começar embaixo
 window.onload = function() { chatbox.display.scrollTop = chatbox.display.scrollHeight; }
+
+window.onload = mockInitialMessages();
 
 //Falta fazer o selector funcionar e então adicionar a função ao click do Enviar

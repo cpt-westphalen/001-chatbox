@@ -31,7 +31,7 @@
 			<div id="input-username-container">
 				<input name="username-input-text" type="text" placeholder="@seunome..." id="username-input-text" autocomplete="off" maxlength="16" title="Digite um nome de usuário aqui" style="margin: 5px;">
 				<input id="username-input-color" name="username-input-color" type="color" style="margin: 5px;">
-				<button id="username-input-button" title="Clique para criar usuário" style="margin: 5px; width: 48px;" onclick="criadorDeUser()">Criar</button>
+				<button id="username-input-button" title="Clique para criar usuário" style="margin: 5px; width: 48px;" onclick="newUser()">Criar</button>
 			</div>
 			<p id="username-display"></p>
 		</section>
@@ -70,7 +70,7 @@
 				</div>
 				<!-- <input id="message-input-field" type="text" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off"> -->
 				<textarea id="message-input-field" name="message-input-field" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off"></textarea>
-				<button id="send-new-message" onclick="getText()">Enviar</button> <!-- ADICIONAR CLICK -->
+				<button id="send-new-message" onclick="sendMessage()">Enviar</button> <!-- ADICIONAR CLICK -->
 		 	</div>
 		 </section>
 	</div>

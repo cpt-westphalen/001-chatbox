@@ -11,7 +11,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap" rel="stylesheet">
 	<link href="stylesheet.css" rel='stylesheet' type="text/css">
-	<script type="text/javascript" src="script.js" async></script>
+	<script src="script.js"></script>
 </head>
 
 <body>
@@ -26,32 +26,45 @@
 				<h2>versão 0.01-alpha</h2>
 			</div>
 			
-			<p>Digite abaixo um <label for="username-input-text">nome de usuário</label> e uma <label for="username-input-color">cor</label> para utilizar no chat.</p>
+			<p>Digite um <label for="username-input-text">nome de usuário</label> e selecione uma <label for="username-input-color">cor</label> para utilizar no chat.</p>
 			
 			<div id="input-username-container">
-				<input name="username-input-text" type="text" placeholder="@seunome..." id="username-input-text" autocomplete="off" maxlength="16" title="Digite um nome de usuário aqui" style="margin: 5px;">
-				<input id="username-input-color" name="username-input-color" type="color" style="margin: 5px;">
-				<button id="username-input-button" title="Clique para criar usuário" style="margin: 5px; width: 48px;" onclick="newUser()">Criar</button>
+				<input name="username-input-text" 
+					type="text" 
+					placeholder="@seunome..." 
+					id="username-input-text" 
+					autocomplete="off" 
+					maxlength="16" 
+					title="Digite um nome de usuário aqui" 
+					style="margin: 5px;">
+				<input id="username-input-color" 
+					name="username-input-color" 
+					type="color" 
+					style="margin: 5px;">
+				<button id="username-input-button" 
+					title="Clique para criar usuário" 
+					style="margin: 5px; width: 48px;" 
+					onclick="newUser()">
+					Criar
+				</button>
 			</div>
-			<p id="username-display"></p>
+			<div style="height: 18px;"><p id="username-display"></p></div>
 		</section>
 
-		<section id="chat-stuff">
+		<section id="chat-area" style="display:none;">
 
-			<main id="chat-log" />
-			
+			<main id="chat-log">
+			</main>
 			<div id="chat-form">
-				<div style="display: block; margin-bottom: 5px;">
+				<div id="user-selection">
 					<label for="select-user">Usuário:</label>
 					<select name="select-user" id="select-user" style="min-width: 15ch;" disabled>
-						<!-- CONFIGURAR SELETOR -->
 					</select>
 				</div>
-				<!-- <input id="message-input-field" type="text" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off"> -->
-				<textarea id="message-input-field" name="message-input-field" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off"></textarea>
-				<button id="send-new-message" onclick="sendMessage()">Enviar</button> <!-- ADICIONAR CLICK -->
+				<textarea id="message-input-field" name="message-input-field" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off" disabled></textarea>
+				<div id="send-message-button-div"><button id="send-button" onclick="sendMessage()" disabled>Enviar</button></div>
 		 	</div>
-		 </section>
+		</section>
 	</div>
 </body>
 </html>

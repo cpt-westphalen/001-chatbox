@@ -1,18 +1,31 @@
+:root {
+	--highlight: #BA207C;
+	--highlight-two: #F5A511;
+	--darkforest: #0B1A0E;
+	--darkgray: #151515;
+	--white: #E0E4E7;
+	--black: #111;
+	background-color: var(--black);
+	color-scheme: light dark;
+}
+
+
 body {
-	overflow: scroll;
+	/*overflow: scroll;*/
 	font-family: 'Inter', sans-serif;
-	font-size: 18px;
-	background-color: #00a985;
+	font-size: 16px;
+	height: 98vh;
 }
 
 h1 {
 	font-size: 2.4em;
 	font-weight: 800;
+	color: var(--black);
 }
 
 h2 {
 	font-size: 0.8em;
-	color: lightgray; 
+	color: var(--highlight-two); 
 	display: inline-block; 
 	overflow-wrap: nowrap;
 	margin-left: 20px; 
@@ -21,36 +34,34 @@ h2 {
 } 
 
 p {
-	color: #4e5153;
+	color: var(--black);
 }
 
 #main-content {
 	display: flex;
-	flex-wrap: wrap;
-	margin: 20px auto;
-	max-height: 1080px;
-	min-height:  max-content;
-	max-width: 1440px;
-	background-color: #08342b;
-	border-radius: 12px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 80%;
+	padding: 0;
 }
 
 #intro {
-	display: inherit;
+	margin: auto;
+	display: flex;
 	max-width: 650px;
 	max-height: 350px;
-	min-height: 250px;
-	padding: 50px;
+	padding: 40px;
 	min-width: fit-content;
-	margin: auto;
 	flex-direction: column;
 	justify-content: center;
-	position: relative;
-	bottom: 50px;
-	background-color: #ebfdf8;
+	align-items: center;
+	background-color: var(--white);
 	border-radius: 12px;
-	-webkit-box-shadow: 1px 05px 10px 0 rgba(25,25,25,025);
-	box-shadow: 1px 05px 10px 0 rgba(25,25,25,025);
+	/*-webkit-box-shadow: 1px 05px 10px 0 rgba(25,25,25,025);
+	box-shadow: 1px 05px 10px 0 rgba(25,25,25,025);*/
+	transition: 0.5s;
+	opacity: 1;
 }
 
 #input-username-container {
@@ -65,40 +76,51 @@ p {
 	font-size: 0.6em;
 }
 
-#chat-stuff {
-	display: inherit;
+#chat-area {
+	display: flex;
 	flex-direction: column;
-	flex-basis:  100%;
+	justify-content: center;
+	align-items: center;
 	margin-left:  auto;
 	margin-right:  auto;
-	height: 100%;
-	max-width: 600px;
-	max-height: 720px;
+	max-height: 800px;
+	width: 720px;
 	min-width: 33%;
 	min-height: 500px;
+	background-color: var(--darkgray);
+	transition: 1s;
+	opacity: 0;
+
 
 }
 
 #chat-log {
 	display: flex;
 	flex-direction: column-reverse;
+	margin:  8% auto 0 auto;
+	padding: 16px;
 	overflow-y: scroll;
+	scrollbar-width: thin;
 	overflow-x: hidden;
-	height: 45%;
+	height: 60%;
 	min-height: 300px; 
 	max-height: 600px; 
-	margin:  10% auto 0 auto; 
-	padding: 16px;
-	background-color: #0D1C18;
+	max-width: 88%;
+	background-color: var(--darkgray);
 	border-radius: 6px;
 	-webkit-box-shadow:inset 1px 05px 10px 0 rgba(0,0,0,025);
 	box-shadow:inset 1px 05px 10px 0 rgba(0,0,0,025);
 }
 
 #chat-form {
-	margin: 10px 5px;
-	color: white;
-	min-height: 128px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+	min-height: 200px;
+	color: var(--white);
+	width: 88%;
+
 }
 
 /*#chat-form > input {
@@ -107,43 +129,66 @@ p {
 }
 */
 
+#user-selection {
+	display: block;
+	margin: 10px 0;
+}
+
 #chat-form > textarea {
+	margin: 0 5px;
+	padding: 6px;
 	resize: none;
 	width: 98%;
 	height: 40%;
-	border-radius: 4px;
+	border-radius: 6px;
 	border-width: 0;
 }
 
-#chat-form > button {
+#send-message-button-div {
 	display: block;
-	color: whitesmoke;
-	float: right;
-	padding: 5px;
+	margin: 15px 0;
+	text-align: right;
+
+}
+
+#send-button {
+	font-size: 14px;
+	color: var(--white);
+	padding: 8px 16px;
 	background-color: inherit;
-	border-radius: 10px;
+	border-radius: 22px;
 	border-width: 1px;
-	border-color: whitesmoke;
-	margin: 2%;
+	border-color: var(--white);
+	cursor: pointer;
 }
 
 .chat-post {
-	color: white;
 	margin: 12px auto;
 	padding: 12px 16px;
 	width: 95%;
-	background-color: darkslategray;
-	border-radius: 35px 25px 35px 0;
+	border: var(--highlight) solid 2px;
+	border-radius: 35px 26px 26px 0;
+	border-top: hidden;
+	border-right: hidden;
 }
 .chat-post > p {
-	color: white;
+	color: var(--white);
 	font-size: 0.9em;
 }
 .chat-post > h3 {
 	margin-top: 12px;
+	font-size: 16px;
 }
 
 .your-text {
-	border-radius: 25px 35px 0 35px;
+	border-radius: 26px 35px 0px 26px;
+	border-left: hidden;
+	border-right: solid;
 }
 
+@/*media screen and (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+    color: black;
+  }
+}*/

@@ -16,15 +16,23 @@ class User {
 class Message {
 
 	constructor(username,text) {
-		const now = new Date();
-		this.date = [`${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`,`${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`];
+		this.date = new Date();
 		this.author = username;
 		this.textContent = text;
 		this.id = users.id[username].messages.length;
 	}
 
 	get timestamp() {
-		return `${this.date[0]} ${this.date[1]}`;
+		const fullTimeStamp = [
+			this.date.getFullYear(),
+			this.date.getMonth()+1,
+			this.date.getDate(),
+			this.date.getHours(),
+			this.date.getMinutes(),
+			this.date.getSeconds(),
+			this.date.getMilliseconds()
+		];
+		return fullTimeStamp;
 	}
 
 	edit(text) {
@@ -72,13 +80,16 @@ const chatbox = {
 		// <div class='chat-post'> wrapper for chatbox message html elements
 		const newPost = document.createElement('div');
 		newPost.classList.add('chat-post');
-		
+		if (users.id[message.author].username == document.getElementById('select-user').value) {
+			newPost.classList.add('your-text');
+		}
+		newPost.style["border-color"] = `${users.id[message.author].color}`;
 		// TO DO => if (esse post é seu) { faça ele também ser class yourText };
 
 		// the <h3 class="username-display"> for "author" of Message obj
 		const newH3 = document.createElement('h3');
 		newH3.classList.add('username-display');
-		newH3.textContent = '@' + message.author;
+		newH3.textContent = '::' + message.author;
 		newH3.style.color = users.id[message.author].color;
 		//now the <p class='chat-message'> element for textContent of Message obj
 		const newP = document.createElement('p');
@@ -102,11 +113,6 @@ function sendMessage() {
 	users.id[username].send(message);
 	console.log("new message created and sent to user object");
 
-	// const author = document.getElementById('select-user').value; // -> falta o seletor
-	// const text = document.getElementById('message-input-field').value;
-	// console.log('tentando enviar mensagem');
-	// console.log(users.id[author]);
-	// users.id[author].send(text);
 }
 
 function mockInitialMessages() {
@@ -118,7 +124,7 @@ function mockInitialMessages() {
 		},
 		{
 			author: 'Ike',
-			userColor: '#000000',
+			userColor: 'rgb(245, 121, 0)',
 			textContent: 'Tirulei'
 		},
 		{
@@ -133,24 +139,6 @@ function mockInitialMessages() {
 		users.id[message.author].send(message);
 	})
 }
-
-if (Object.keys(users.id).length === 0) chatbox.available = false;
-
-// const chatboxLogDisplay = document.getElementById("chat-log");
-
-console.log("javascript iniciado com sucesso");
-
-//Função base para click, falta Enter ao digitar o name;
-// function newUser(){
-// 	let usernameInput = document.getElementById("usernameInputText").value;
-// 	document.getElementById("usernameInputText").value = "";
-// 	let usernameColor = document.getElementById("usernameInputColor").value;
-// 	users.add(usernameInput, usernameColor);
-// 	createdUser = true; //trigger pra liberar chatbox
-// 	console.log("novo objeto de usuario criado");
-// 	console.log(users);
-// 	document.getElementById("username-display").innerText = String("Novo usuário criado com sucesso: " + users.id[usernameInput].username);
-// }
 
 function newUser(){
 	const usernameInput = document.getElementById("username-input-text").value;
@@ -171,13 +159,30 @@ function addUserOnSelector(usernameInput){
 	newOption.textContent = usernameInput;
 	selector.append(newOption);
 	if (chatbox.available) {
+		toChatbox(); // criar função
 		selector.disabled = false;
+		document.getElementById("message-input-field").disabled = false;
+		document.getElementById('send-button').disabled = false;
+		
 	}
 }
 
-//fazer o scroll começar embaixo
-window.onload = function() { chatbox.display.scrollTop = chatbox.display.scrollHeight; }
+function toChatbox() {
+	document.getElementById("intro").style.opacity = 0;
+	setTimeout(()=>{
+		document.getElementById("chat-area").style.display = "flex";
+	},500);
+	setTimeout(()=>{
+		document.getElementById("intro").remove();
+		document.getElementById("chat-area").style.opacity = 1;
+	},1000);
+}
 
-window.onload = mockInitialMessages();
+//fazer o scroll começar embaixo
+window.onload = function() { 
+	chatbox.display.scrollTop = chatbox.display.scrollHeight; 
+	// teste de mensagens
+	mockInitialMessages();
+}
 
 //Falta fazer o selector funcionar e então adicionar a função ao click do Enviar

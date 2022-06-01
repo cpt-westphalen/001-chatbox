@@ -16,15 +16,23 @@ class User {
 class Message {
 
 	constructor(username,text) {
-		const now = new Date();
-		this.date = [`${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`,`${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`];
+		this.date = new Date();
 		this.author = username;
 		this.textContent = text;
 		this.id = users.id[username].messages.length;
 	}
 
 	get timestamp() {
-		return `${this.date[0]} ${this.date[1]}`;
+		const fullTimeStamp = [
+			this.date.getFullYear(),
+			this.date.getMonth()+1,
+			this.date.getDate(),
+			this.date.getHours(),
+			this.date.getMinutes(),
+			this.date.getSeconds(),
+			this.date.getMilliseconds()
+		];
+		return fullTimeStamp;
 	}
 
 	edit(text) {
@@ -32,6 +40,11 @@ class Message {
 		this.textContent = text;
 	}
 }
+
+
+// variables
+let textArea = document.getElementById("message-input-field");
+
 
 // global "users" object
 const users = { 
@@ -72,13 +85,16 @@ const chatbox = {
 		// <div class='chat-post'> wrapper for chatbox message html elements
 		const newPost = document.createElement('div');
 		newPost.classList.add('chat-post');
-		
+		if (users.id[message.author].username == document.getElementById('select-user').value) {
+			newPost.classList.add('your-text');
+		}
+		newPost.style["border-color"] = `${users.id[message.author].color}`;
 		// TO DO => if (esse post é seu) { faça ele também ser class yourText };
 
 		// the <h3 class="username-display"> for "author" of Message obj
 		const newH3 = document.createElement('h3');
 		newH3.classList.add('username-display');
-		newH3.textContent = '@' + message.author;
+		newH3.textContent = '::' + message.author;
 		newH3.style.color = users.id[message.author].color;
 		//now the <p class='chat-message'> element for textContent of Message obj
 		const newP = document.createElement('p');
@@ -90,67 +106,29 @@ const chatbox = {
 	}
 };
 
+//simple handler for keypress event
+const handleEnterKey = k => {
+	if (k.key == "Enter") 
+		sendMessage();
+}
+
 // send message from chatbox input to users.id[username] obj
 function sendMessage() {
-	
-	const username = document.getElementById('select-user').value;
-	const text = document.getElementById('message-input-field').value;
-	document.getElementById('message-input-field').value = "";
-	// build a new message object
-	const message = new Message(username,text);
-	// send the message obj to user send method
-	users.id[username].send(message);
-	console.log("new message created and sent to user object");
-
-	// const author = document.getElementById('select-user').value; // -> falta o seletor
-	// const text = document.getElementById('message-input-field').value;
-	// console.log('tentando enviar mensagem');
-	// console.log(users.id[author]);
-	// users.id[author].send(text);
+	if (textArea.value.trim()) {
+		textArea.style["border-color"] = "#1A1A1A";
+		const username = document.getElementById('select-user').value;
+		const text = textArea.value.trim();
+		textArea.value = "";
+		// build a new message object
+		const message = new Message(username,text);
+		// send the message obj to user send method
+		users.id[username].send(message);
+		console.log("new message created and sent to user object");
+	} else {
+		textArea.style["border-color"] = "red";
+		textArea.value = "";
+	}
 }
-
-function mockInitialMessages() {
-	const messages = [
-		{
-			author: 'Cão',
-			userColor: '#FFF000',
-			textContent: 'Tirulaa'
-		},
-		{
-			author: 'Ike',
-			userColor: '#000000',
-			textContent: 'Tirulei'
-		},
-		{
-			author: 'Cão',
-			userColor: '#FFF000',
-			textContent: 'Ea quod veritatis aspernatur inventore corrupti quia necessitatibus nihil. Maxime minima maiores consectetur hic. Expedita quasi necessitatibus architecto deserunt vel sunt. Doloremque rerum possimus expedita ut. Architecto sunt aperiam neque similique praesentium consequatur repellendus. Voluptatibus nostrum odit debitis aut quo dolor.'
-		},
-	]
-
-	messages.map((message) => {
-		users.add(message.author, message.userColor);
-		users.id[message.author].send(message);
-	})
-}
-
-if (Object.keys(users.id).length === 0) chatbox.available = false;
-
-// const chatboxLogDisplay = document.getElementById("chat-log");
-
-console.log("javascript iniciado com sucesso");
-
-//Função base para click, falta Enter ao digitar o name;
-// function newUser(){
-// 	let usernameInput = document.getElementById("usernameInputText").value;
-// 	document.getElementById("usernameInputText").value = "";
-// 	let usernameColor = document.getElementById("usernameInputColor").value;
-// 	users.add(usernameInput, usernameColor);
-// 	createdUser = true; //trigger pra liberar chatbox
-// 	console.log("novo objeto de usuario criado");
-// 	console.log(users);
-// 	document.getElementById("username-display").innerText = String("Novo usuário criado com sucesso: " + users.id[usernameInput].username);
-// }
 
 function newUser(){
 	const usernameInput = document.getElementById("username-input-text").value;
@@ -171,13 +149,61 @@ function addUserOnSelector(usernameInput){
 	newOption.textContent = usernameInput;
 	selector.append(newOption);
 	if (chatbox.available) {
+		toChatbox(); 
 		selector.disabled = false;
+		document.getElementById('send-button').disabled = false;
+		document.getElementById('send-button').style["border-color"] = users.id[selector.value].color;
+		
 	}
 }
 
+function toChatbox() {
+	document.getElementById("intro").style.opacity = 0;
+	setTimeout(()=>{
+		document.getElementById("chat-area").style.display = "flex";
+	},500);
+	setTimeout(()=>{
+		document.getElementById("intro").remove();
+		document.getElementById("chat-area").style.opacity = 1;
+		textArea.addEventListener("keyup", handleEnterKey);
+	},1000);
+}
+
 //fazer o scroll começar embaixo
-window.onload = function() { chatbox.display.scrollTop = chatbox.display.scrollHeight; }
+window.onload = function() { 
+	chatbox.display.scrollTop = chatbox.display.scrollHeight;
+	document.getElementById("intro").addEventListener("keydown",(k)=>{
+		if(k.key == "Enter") {
+			newUser();
+		}
+	});
+	mockInitialMessages(); // teste de mensagens
+}
 
-window.onload = mockInitialMessages();
 
-//Falta fazer o selector funcionar e então adicionar a função ao click do Enviar
+// --------------------------------------
+
+function mockInitialMessages() {
+	const messages = [
+		{
+			author: 'Cão',
+			userColor: '#FFF000',
+			textContent: 'Tirulaa'
+		},
+		{
+			author: 'Ike',
+			userColor: 'rgb(245, 121, 0)',
+			textContent: 'Tirulei'
+		},
+		{
+			author: 'Cão',
+			userColor: '#FFF000',
+			textContent: 'Ea quod veritatis aspernatur inventore corrupti quia necessitatibus nihil. Maxime minima maiores consectetur hic. Expedita quasi necessitatibus architecto deserunt vel sunt.'
+		},
+	]
+
+	messages.map((message) => {
+		users.add(message.author, message.userColor);
+		users.id[message.author].send(message);
+	})
+}

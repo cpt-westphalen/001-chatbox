@@ -41,6 +41,11 @@ class Message {
 	}
 }
 
+
+// variables
+let textArea = document.getElementById("message-input-field");
+
+
 // global "users" object
 const users = { 
 	id: {}, //this is where every new User() is stored. Access it thru users.id[username]
@@ -101,43 +106,28 @@ const chatbox = {
 	}
 };
 
-// send message from chatbox input to users.id[username] obj
-function sendMessage() {
-	
-	const username = document.getElementById('select-user').value;
-	const text = document.getElementById('message-input-field').value;
-	document.getElementById('message-input-field').value = "";
-	// build a new message object
-	const message = new Message(username,text);
-	// send the message obj to user send method
-	users.id[username].send(message);
-	console.log("new message created and sent to user object");
-
+//simple handler for keypress event
+const handleEnterKey = k => {
+	if (k.key == "Enter") 
+		sendMessage();
 }
 
-function mockInitialMessages() {
-	const messages = [
-		{
-			author: 'Cão',
-			userColor: '#FFF000',
-			textContent: 'Tirulaa'
-		},
-		{
-			author: 'Ike',
-			userColor: 'rgb(245, 121, 0)',
-			textContent: 'Tirulei'
-		},
-		{
-			author: 'Cão',
-			userColor: '#FFF000',
-			textContent: 'Ea quod veritatis aspernatur inventore corrupti quia necessitatibus nihil. Maxime minima maiores consectetur hic. Expedita quasi necessitatibus architecto deserunt vel sunt. Doloremque rerum possimus expedita ut. Architecto sunt aperiam neque similique praesentium consequatur repellendus. Voluptatibus nostrum odit debitis aut quo dolor.'
-		},
-	]
-
-	messages.map((message) => {
-		users.add(message.author, message.userColor);
-		users.id[message.author].send(message);
-	})
+// send message from chatbox input to users.id[username] obj
+function sendMessage() {
+	if (textArea.value.trim()) {
+		textArea.style["border-color"] = "#1A1A1A";
+		const username = document.getElementById('select-user').value;
+		const text = textArea.value.trim();
+		textArea.value = "";
+		// build a new message object
+		const message = new Message(username,text);
+		// send the message obj to user send method
+		users.id[username].send(message);
+		console.log("new message created and sent to user object");
+	} else {
+		textArea.style["border-color"] = "red";
+		textArea.value = "";
+	}
 }
 
 function newUser(){
@@ -159,10 +149,10 @@ function addUserOnSelector(usernameInput){
 	newOption.textContent = usernameInput;
 	selector.append(newOption);
 	if (chatbox.available) {
-		toChatbox(); // criar função
+		toChatbox(); 
 		selector.disabled = false;
-		document.getElementById("message-input-field").disabled = false;
 		document.getElementById('send-button').disabled = false;
+		document.getElementById('send-button').style["border-color"] = users.id[selector.value].color;
 		
 	}
 }
@@ -175,14 +165,45 @@ function toChatbox() {
 	setTimeout(()=>{
 		document.getElementById("intro").remove();
 		document.getElementById("chat-area").style.opacity = 1;
+		textArea.addEventListener("keyup", handleEnterKey);
 	},1000);
 }
 
 //fazer o scroll começar embaixo
 window.onload = function() { 
-	chatbox.display.scrollTop = chatbox.display.scrollHeight; 
-	// teste de mensagens
-	mockInitialMessages();
+	chatbox.display.scrollTop = chatbox.display.scrollHeight;
+	document.getElementById("intro").addEventListener("keydown",(k)=>{
+		if(k.key == "Enter") {
+			newUser();
+		}
+	});
+	mockInitialMessages(); // teste de mensagens
 }
 
-//Falta fazer o selector funcionar e então adicionar a função ao click do Enviar
+
+// --------------------------------------
+
+function mockInitialMessages() {
+	const messages = [
+		{
+			author: 'Cão',
+			userColor: '#FFF000',
+			textContent: 'Tirulaa'
+		},
+		{
+			author: 'Ike',
+			userColor: 'rgb(245, 121, 0)',
+			textContent: 'Tirulei'
+		},
+		{
+			author: 'Cão',
+			userColor: '#FFF000',
+			textContent: 'Ea quod veritatis aspernatur inventore corrupti quia necessitatibus nihil. Maxime minima maiores consectetur hic. Expedita quasi necessitatibus architecto deserunt vel sunt.'
+		},
+	]
+
+	messages.map((message) => {
+		users.add(message.author, message.userColor);
+		users.id[message.author].send(message);
+	})
+}

@@ -11,7 +11,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap" rel="stylesheet">
 	<link href="stylesheet.css" rel='stylesheet' type="text/css">
-	<script src="script.js"></script>
+	<script async src="script.js"></script>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
 
 			<div>
 				<h1 style="display: inline;">Teste de Chatbox</h1>
-				<h2>versão 0.01-alpha</h2>
+				<h2>versão 0.02-alpha</h2>
 			</div>
 			
 			<p>Digite um <label for="username-input-text">nome de usuário</label> e selecione uma <label for="username-input-color">cor</label> para utilizar no chat.</p>
@@ -31,7 +31,7 @@
 			<div id="input-username-container">
 				<input name="username-input-text" 
 					type="text" 
-					placeholder="@seunome..." 
+					placeholder="username" 
 					id="username-input-text" 
 					autocomplete="off" 
 					maxlength="16" 
@@ -61,8 +61,8 @@
 					<select name="select-user" id="select-user" style="min-width: 15ch;" disabled>
 					</select>
 				</div>
-				<textarea id="message-input-field" name="message-input-field" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off" disabled></textarea>
-				<div id="send-message-button-div"><button id="send-button" onclick="sendMessage()" disabled>Enviar</button></div>
+				<textarea id="message-input-field" name="message-input-field" name="message" placeholder="Digite uma mensagem..." maxlength="500" autocomplete="off" rows="1"></textarea>
+				<div id="send-message-button-div"><button id="send-button" onclick="sendMessage()" disabled></button></div>
 		 	</div>
 		</section>
 	</div>
